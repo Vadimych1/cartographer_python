@@ -12,7 +12,7 @@ sudo apt-get install -y \
     libeigen3-dev cmake ninja-build \
     libunwind-dev libabsl-dev libcairo-dev
 
-cd cartographer
+cd carto
 mkdir build && cd build
 cmaeke .. -G Ninja
 sudo ninja
