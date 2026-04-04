@@ -1,0 +1,60 @@
+name: Build Python Wheels
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            cibw_archs: "x86_64 aarch64"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        if: runner.os == 'Linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.23.1
+        env:
+          CIBW_ARCHS_LINUX: ${{ matrix.cibw_archs }}
+          CIBW_BUILD: "cp39-* cp310-* cp311-* cp312-*"
+          CIBW_BEFORE_ALL_LINUX: |
+            yum update -y
+            yum install -y \
+            	cmake \
+            	ceres-solver \
+            	ceres-solver-devel \
+            	ninja-build \
+            	epel-release \
+            	boost \
+            	boost-thread \
+            	boost-devel \
+            	gflags \
+            	gflags-devel \
+            	glog \
+            	glog-devel \
+            	gmock \
+            	gmock-devel \
+            	eigen3-devel \
+            	protobuf-devel \
+            	protobuf-compiler \
+            	lua-devel \
+            	atlas-devel \
+            	unwind-devel \
+            	absl-devel \ 
+            	cairo-devel
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}-${{ matrix.cibw_archs }}
+          path: ./wheelhouse/*.whl
+  
