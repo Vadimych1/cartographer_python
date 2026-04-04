@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+ 
 #ifndef CARTOGRAPHER_COMMON_CONFIG_H_
 #define CARTOGRAPHER_COMMON_CONFIG_H_
 

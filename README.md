@@ -1,8 +1,23 @@
 # Installing CartoPy
 
-For installing package you first need to build a wheel. Building requires pre-compiled Google Cartographer:
+For installing package you first need to build a wheel. Required packages are:
+- google-mock
+- ceres-solver
+- lua5.3
+- protobuf
+- protobuf-compiler
+- boost
+- gflags
+- glog
+- atlas
+- eigen3
+- cmake
+- ninja-build
+- unwind
+- absl
+- cairo
 
-If you don`t have Cartographer, you can easily build it on Ubuntu/Debian:
+If you are using Ubuntu/Debian:
 ```bash
 sudo apt-get install -y \
     google-mock libceres-dev liblua5.3-dev \
@@ -11,29 +26,14 @@ sudo apt-get install -y \
     libgoogle-glog-dev libatlas-base-dev \
     libeigen3-dev cmake ninja-build \
     libunwind-dev libabsl-dev libcairo-dev
-
-cd carto
-mkdir build && cd build
-cmaeke .. -G Ninja
-sudo ninja
-sudo ninja install
 ```
 
-It may take a few attempts to compile. You can ask for help compiling Cartographer at `vadimlebedenko0@gmail.com`
-
-Next create a venv (you`ll probably need it for installing package after):
+Next run this in root directory. It will output .whl file into ./dist/ that you can install (requires python3 and python3-build module):
 ```bash
-sudo apt-get install python3-build python3-venv # install venv and build if not installed
-python3 -m venv venv
+python3 -m build
 ```
 
-Run these commands:
-```bash
-venv/bin/python3 -m build
-venv/bin/pip install dist/*.whl
-```
-
-Package is now installed in your venv. Example using:
+# Example using:
 ```python
 import carto_py as cp
 
