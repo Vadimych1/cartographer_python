@@ -1,3 +1,6 @@
+# Warning
+## This project does NOT currently work on any other Linux distro than Ubuntu 22.04. I am working on this 
+
 # Installing CartoPy
 
 For installing package you first need to build a wheel. Required packages are:
